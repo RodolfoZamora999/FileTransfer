@@ -60,18 +60,43 @@ public class FileClient {
     //Punto de entrada del programa
     public static void main(String... args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String host;
+        int port;
+        String patch;
 
-        System.out.print("Inserte host de destino: ");
-        String host = bufferedReader.readLine();
+        //Paso por parámetro
+        if(args.length > 0) {
+            String parameter = args[0];
+            String[] tokens = parameter.split("@");
 
-        System.out.print("Inserte el puerto: ");
-        int port = Integer.parseInt(bufferedReader.readLine());
+            //Borrar
+            for(var x : tokens)
+             System.out.println(x);
 
-        System.out.print("Inserte el fichero a enviar: ");
-        String patch = bufferedReader.readLine();
+
+            if(tokens.length < 3) {
+                System.out.println("Sintaxis incorrecta");
+                System.out.println("Sintaxos de parametro esperado: host@port@patch" );
+                System.out.println("Ejemplo: localhost@1921@c:/users/user/desktop/image.jpg" );
+                return;
+            }
+
+            host = tokens[0];
+            port = Integer.parseInt(tokens[1]);
+            patch = tokens[2];
+        }
+        else {
+            System.out.print("Inserte host de destino: ");
+            host = bufferedReader.readLine();
+    
+            System.out.print("Inserte el puerto: ");
+            port = Integer.parseInt(bufferedReader.readLine());
+    
+            System.out.print("Inserte el fichero a enviar: ");
+            patch = bufferedReader.readLine();
+        }
 
         FileClient socketImage = new FileClient(host, port);
-
         File file = new File(patch);
         if(file.exists()) {
             System.out.println("Enviando fichero....");
