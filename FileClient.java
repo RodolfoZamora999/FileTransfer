@@ -15,7 +15,6 @@ public class FileClient {
     public FileClient(String host, int port) {
         this.host = host;
         this.port = port;
-        System.out.println("FileClient 0.1");
     }
 
     public void sendFile(File file) {
@@ -55,57 +54,5 @@ public class FileClient {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-    }
-
-    //Punto de entrada del programa
-    public static void main(String... args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String host;
-        int port;
-        String patch;
-
-        //Paso por parámetro
-        if(args.length > 0) {
-            String parameter = args[0];
-            String[] tokens = parameter.split("@");
-
-            //Borrar
-            for(var x : tokens)
-             System.out.println(x);
-
-
-            if(tokens.length < 3) {
-                System.out.println("Sintaxis incorrecta");
-                System.out.println("Sintaxos de parametro esperado: host@port@patch" );
-                System.out.println("Ejemplo: localhost@1921@c:/users/user/desktop/image.jpg" );
-                return;
-            }
-
-            host = tokens[0];
-            port = Integer.parseInt(tokens[1]);
-            patch = tokens[2];
-        }
-        else {
-            System.out.print("Inserte host de destino: ");
-            host = bufferedReader.readLine();
-    
-            System.out.print("Inserte el puerto: ");
-            port = Integer.parseInt(bufferedReader.readLine());
-    
-            System.out.print("Inserte el fichero a enviar: ");
-            patch = bufferedReader.readLine();
-        }
-
-        FileClient socketImage = new FileClient(host, port);
-        File file = new File(patch);
-        if(file.exists()) {
-            System.out.println("Enviando fichero....");
-            socketImage.sendFile(file);
-        }
-        else
-            System.out.println("No existe el archivo....");
-
-        //Se cierra el flujo
-        bufferedReader.close();
     }
 }

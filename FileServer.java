@@ -13,7 +13,6 @@ public class FileServer {
 
     public FileServer(int port) {
         this.port = port;
-        System.out.println("FileServer 0.1");
     }
 
     public void startServerSocket() {
@@ -45,13 +44,13 @@ public class FileServer {
            bufferedReader.close();
            inputStream.close();
            socket.close();
+           serverSocket.close();
            System.out.println("El servidor ha finalizado");
        }
        catch (Exception exception) {
            exception.printStackTrace();
        }
     }
-
 
     private void createFile(final String fileName, final byte[] bytesFile) {
         String path = System.getProperty("user.dir");
@@ -83,16 +82,5 @@ public class FileServer {
                 ioException.printStackTrace();
             }
         }
-    }
-
-    //Punto de entrada del programa
-    public static void main(String... args) throws IOException {
-        System.out.print("Numero de puerto: ");
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int port = Integer.parseInt(br.readLine());
-
-        FileServer fileServer = new FileServer(port);
-        fileServer.startServerSocket();
-        br.close();
     }
 }
