@@ -17,7 +17,7 @@ Solo basta con abrir la terminal en la ra√≠z del proyecto, escribir la palabra ‚
 
 </br>
 </br>
-![make command line](documentation/make.PNG)
+![image info](./documentation/make.PNG)
 </br>
 </br>
 
