@@ -16,13 +16,11 @@ En la carpeta del proyecto se encuentra un archivo Makefile, para poderlo ejecut
 Solo basta con abrir la terminal en la raíz del proyecto, escribir la palabra “make” y dar enter para que se inicie la compilación y empaquetado del proyecto, dando como resultado un archivo jar complemente funcional.
 
 </br>
-</br>
-![image info](./documentation/make.PNG)
-</br>
-</br>
 
+![make coomand line](documentation/make.PNG)
+
+</br>
 
 ```bash
-java -jar FileTransfer.jar
-alert(s);
+java -jar FileTransfer.jar --client 
 ```
