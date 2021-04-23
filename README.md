@@ -21,9 +21,8 @@ Solo basta con abrir la terminal en la raíz del proyecto, escribir la palabra �
 
 </br>
 
-
 ## Uso de FileTransfer
-Tanto el servidor como el cliente están “empaquetados” dentro del mismo archivo jar, esto con la finalidad de tener todo integrado en un solo archivo. 
+Tanto el servidor como el cliente se encuentran “empaquetados” dentro del mismo archivo jar, esto con la finalidad de tener todo integrado en un solo archivo. 
 
 Para iniciar el servidor o cliente solo basta con especificarlo de la siguiente manera desde la terminal:
 
@@ -33,7 +32,7 @@ Inicio del servidor
 java -jar FileTransfer.jar --server [port]
 ```
 
-> *“port” como su nombre lo indica, hace referencia al número de puerto al que estará escuchando el programa, si no se especifica un puerto se utilizará el *1921* como predeterminado.
+>“port” como su nombre lo indica, hace referencia al número de puerto al que estará escuchando el programa, si no se especifica un puerto se utilizará el *1921* como predeterminado.
 
 
 Inicio del cliente
@@ -42,4 +41,10 @@ Inicio del cliente
 java -jar FileTransfer.jar host@port@file_path
 ```
 
-> “host” hace referencia a la dirección del host servidor, por ejemplo: 192.180.168.132, “port” el número de puerto que el servidor está escuchando y “file_path” hace referencia a la dirección del fichero que se quiera transferir, ejemplo: c://users/user/desktop/video.mp4
+>“host” hace referencia a la dirección del host servidor, por ejemplo: 192.180.168.132, “port” el número de puerto que el servidor está escuchando y “file_path” hace referencia a la dirección del fichero que se quiera transferir, ejemplo: c://users/user/desktop/video.mp4
+
+</br>
+</br>
+
+### Nota importante:
+Este proyecto solamente está desarrollado como un mero hobbit y hasta cierto punto con fines educativos, no se recomienda su uso con host fuera de la red local debido a la falta de seguridad en la transferencia de datos.
