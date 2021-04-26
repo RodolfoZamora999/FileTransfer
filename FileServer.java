@@ -9,10 +9,12 @@ import java.net.Socket;
  * Nota: El cliente solamente puede enviar ficheros que el sevidor recibira
  */
 public class FileServer {
+    private final int sizeBuffer = (int) 10e6; //Buffer size 10MB
     private final int port;
 
     public FileServer(int port) {
         this.port = port;
+        System.out.println("FileServer 0.1");
     }
 
     public void startServerSocket() {
@@ -23,24 +25,35 @@ public class FileServer {
            ServerSocket serverSocket = new ServerSocket(port);
            Socket socket = serverSocket.accept();
 
-           //Obtener los flujos de entrada y salida del socket
            InputStream inputStream = socket.getInputStream();
+           BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream, sizeBuffer);
            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-           //Obtenemos el nombre del fichero
-           String name = bufferedReader.readLine();
+           String name = bufferedReader.readLine(); //File name
            System.out.println("Nombre del fichero que se recibira: " + name);
-           //Obtenemos el tamaño en bytes del fichero
-           String size = bufferedReader.readLine();
+           String size = bufferedReader.readLine(); //File size
            System.out.println("Tamano del fichero: " + size + " bytes");
 
-           //Obtenemos un array de todos los bytes del fichero
-           byte[] bytesFile = inputStream.readAllBytes();
+           //Create and get file outputStream
+           BufferedOutputStream bufferFile = createFile(name);
 
-           //Método para la creación del fichero
-           createFile(name, bytesFile);
+           //Write data to File
+           if (bufferFile != null) {
+               int data;
+               while (true) {
+                   data = bufferedInputStream.read();
+                   //End data writing
+                   if (data == -1) {
+                       bufferFile.flush();
+                       break;
+                   }
+                   else
+                       bufferFile.write(data);
+               }
+           }
 
-           //Cerramos todos los flujos de datos
+           //Close all streams
+           bufferedInputStream.close();
            bufferedReader.close();
            inputStream.close();
            socket.close();
@@ -52,28 +65,23 @@ public class FileServer {
        }
     }
 
-    private void createFile(final String fileName, final byte[] bytesFile) {
+    /**
+     * Create and return file outputStream
+     * @param fileName Name of file
+     * @return file outputStream
+     */
+    private BufferedOutputStream createFile(final String fileName) {
         String path = System.getProperty("user.dir");
         File file = new File(path, fileName);
-
         if(!file.exists()) {
             try {
                 boolean fileState = file.createNewFile();
                 if (fileState) {
                     System.out.println("Fichero creado con exito");
 
-                    //Obtenemos los flujos de entrada y salida del fichero
+                    //Get file outputStream
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-
-                    //Escribimos el array de bytes en el fichero creado
-                    bufferedOutputStream.write(bytesFile);
-
-                    //Cerramos los flujos de datos
-                    bufferedOutputStream.close();
-                    fileOutputStream.close();
-
-                    System.out.println("¡Escritura del fichero exitosa!");
+                    return new BufferedOutputStream(fileOutputStream, sizeBuffer);
                 }
                 else
                     System.out.println("¡Error al crear el archivo!");
@@ -82,5 +90,8 @@ public class FileServer {
                 ioException.printStackTrace();
             }
         }
+
+        //Todo: Check this
+        return null;
     }
 }

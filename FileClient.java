@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.Files;;
 
 /**
  * FileClient es el cliente para la transferencia de ficheros para el servidor FileServer.
@@ -9,6 +8,7 @@ import java.nio.file.Files;;
  * Nota: El cliente solamente puede enviar ficheros que el sevidor recibira
  */
 public class FileClient {
+    private final int sizeBuffer = (int) 10e6; //Buffer size 10MB
     private final String host;
     private final int port;
 
@@ -25,29 +25,42 @@ public class FileClient {
         try {
             Socket socket = new Socket(host, port);
 
-            //Obtenemos los fluhos de entrada y salida del socjet
+            //Stream socket
             OutputStream outputStream = socket.getOutputStream();
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream, sizeBuffer);
             PrintWriter writer = new PrintWriter(bufferedOutputStream);
 
-            //Se envia el nombre del fichero
+            //Stream file
+            FileInputStream fileInputStream = new FileInputStream(file);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream, sizeBuffer);
+
+            //Send file name
             System.out.println("Fichero que se enviara: " + name);
             writer.println(name);
             writer.flush();
 
-            //Se envia el tamaño en bytes del fichero, de esta manera el servidor sabe la cantidad
-            // de datos a esperar.
+            //Send file size
             System.out.println("Tamano del fichero: " + size + " bytes");
             writer.println(size);
             writer.flush();
 
+            //Read and send data file
+            int data;
+            while (true) {
+                data = bufferedInputStream.read();
+                //End data sending
+                if (data == -1) {
+                    //bufferedOutputStream.write(-1);
+                    bufferedOutputStream.flush();
+                    break;
+                }
+                else
+                    bufferedOutputStream.write(data);
+            }
 
-            //Se obtiene todos los bytes del fichero y se envian al servidor
-            byte[] imageBytes = Files.readAllBytes(file.toPath());
-            bufferedOutputStream.write(imageBytes);
-            bufferedOutputStream.flush();
-
-            //Se cierra todos los fluhos de datos
+            //Close all streams
+            bufferedInputStream.close();
+            fileInputStream.close();
             bufferedOutputStream.close();
             outputStream.close();
             socket.close();
