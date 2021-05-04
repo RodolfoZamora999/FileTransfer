@@ -18,7 +18,8 @@ La transferencia de ficheros entre dos computadoras dentro de la misma red local
 ## Compilación del proyecto
 En la carpeta del proyecto se encuentra un archivo Makefile, para poderlo ejecutar se deberá tener instalado previamente esta herramienta (Makefile está disponible tanto para Linux como para windows).
 
-Solo basta con abrir la terminal en la raíz del proyecto, escribir la palabra “make” y dar enter para que se inicie la compilación y empaquetado del proyecto, dando como resultado un archivo jar complemente funcional.
+Solo basta con abrir la terminal en la raíz del proyecto, escribir la palabra “make” y dar enter para que se inicie la compilación y empaquetado del proyecto, dando como resultado un archivo jar complemente funcional. O bien, puedes descargar el archivo compilado y empaquetado del siguiente link: O bien, puedes descargar el archivo compilado y empaquetado del siguiente link:  [ Clic aquí para descargar FileTransfer.jar ](documentation/FileTransfer.jar)
+
 
 </br>
 
