@@ -47,7 +47,7 @@ java -jar FileTransfer.jar --server [port]
 java -jar FileTransfer.jar --client host@port@file_path
 ```
 
->“host” hace referencia a la dirección del host servidor, por ejemplo: 192.180.168.132, “port” el número de puerto que el servidor está escuchando y “file_path” hace referencia a la dirección del fichero que se quiera transferir, ejemplo: c://users/user/desktop/video.mp4
+>“host” hace referencia a la dirección del host servidor, por ejemplo: 192.180.168.132, “port” el número de puerto que el servidor está escuchando y “file_path” hace referencia a la dirección del fichero que se quiera transferir, ejemplo: c://users/rodol/desktop/video.mp4
 
 </br>
 
