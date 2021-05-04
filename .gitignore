@@ -1,3 +1,6 @@
 # gitignore file
 *.jar
 *.class
+/out
+/.idea
+*.iml

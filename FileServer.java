@@ -29,6 +29,7 @@ public class FileServer {
            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream, sizeBuffer);
            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
+           //Get file name and size
            String name = bufferedReader.readLine(); //File name
            System.out.println("Nombre del fichero que se recibira: " + name);
            String size = bufferedReader.readLine(); //File size
@@ -36,7 +37,6 @@ public class FileServer {
 
            //Create and get file outputStream
            BufferedOutputStream bufferFile = createFile(name);
-
            //Write data to File
            if (bufferFile != null) {
                int data;
@@ -44,18 +44,22 @@ public class FileServer {
                    data = bufferedInputStream.read();
                    //End data writing
                    if (data == -1) {
+                       //Close file streams
                        bufferFile.flush();
+                       bufferFile.close();
+                       //Close socket streams
+                       bufferedReader.close();
+                       bufferedInputStream.close();
+                       inputStream.close();
                        break;
                    }
-                   else
+                   else {
                        bufferFile.write(data);
+                   }
                }
            }
 
            //Close all streams
-           bufferedInputStream.close();
-           bufferedReader.close();
-           inputStream.close();
            socket.close();
            serverSocket.close();
            System.out.println("El servidor ha finalizado");
@@ -68,7 +72,7 @@ public class FileServer {
     /**
      * Create and return file outputStream
      * @param fileName Name of file
-     * @return file outputStream
+     * @return file outputStream. Null if the file exists before.
      */
     private BufferedOutputStream createFile(final String fileName) {
         String path = System.getProperty("user.dir");
@@ -78,7 +82,6 @@ public class FileServer {
                 boolean fileState = file.createNewFile();
                 if (fileState) {
                     System.out.println("Fichero creado con exito");
-
                     //Get file outputStream
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
                     return new BufferedOutputStream(fileOutputStream, sizeBuffer);
@@ -90,8 +93,6 @@ public class FileServer {
                 ioException.printStackTrace();
             }
         }
-
-        //Todo: Check this
         return null;
     }
 }

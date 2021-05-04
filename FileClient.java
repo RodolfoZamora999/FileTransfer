@@ -37,7 +37,6 @@ public class FileClient {
             //Send file name
             System.out.println("Fichero que se enviara: " + name);
             writer.println(name);
-            writer.flush();
 
             //Send file size
             System.out.println("Tamano del fichero: " + size + " bytes");
@@ -50,18 +49,23 @@ public class FileClient {
                 data = bufferedInputStream.read();
                 //End data sending
                 if (data == -1) {
-                    //bufferedOutputStream.write(-1);
                     bufferedOutputStream.flush();
+
+                    //Close socket streams
+                    writer.close();
+                    bufferedOutputStream.close();
+
+                    //Close file streams
+                    bufferedInputStream.close();
+                    fileInputStream.close();
                     break;
                 }
-                else
+                else {
                     bufferedOutputStream.write(data);
+                }
             }
 
             //Close all streams
-            bufferedInputStream.close();
-            fileInputStream.close();
-            bufferedOutputStream.close();
             outputStream.close();
             socket.close();
         } catch (Exception exception) {
