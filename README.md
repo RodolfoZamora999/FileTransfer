@@ -9,6 +9,7 @@ Para que ocurra la “magia” se necesitan dos piezas claves, el cliente (que e
 ### El caso de uso principal a este proyecto es el siguiente: 
 La transferencia de ficheros entre dos computadoras dentro de la misma red local, de esta manera dejando de lado la transferencia tediosa a través de USB, configuración de un servidor FTP o tener que subir el fichero a la nube  para su posterior descarga en la computadora de destino. El poder transferir el fichero a través de la misma red local brinda la posibilidad de usar la velocidad máxima posible dentro de tu red LAN, la cual no se ve limitada por el ancho de banda de tu proveedor de Internet (el cual no tiene poder aquí).    
 
+</br>
 
 ## Compilación del proyecto
 En la carpeta del proyecto se encuentra un archivo Makefile, para poderlo ejecutar se deberá tener instalado previamente esta herramienta (Makefile está disponible tanto para Linux como para windows).
