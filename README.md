@@ -26,7 +26,7 @@ Tanto el servidor como el cliente se encuentran “empaquetados” dentro del mi
 
 Para iniciar el servidor o cliente solo basta con especificarlo de la siguiente manera desde la terminal:
 
-Inicio del servidor
+### Inicio del servidor
 
 ```bash
 java -jar FileTransfer.jar --server [port]
@@ -34,8 +34,9 @@ java -jar FileTransfer.jar --server [port]
 
 >“port” como su nombre lo indica, hace referencia al número de puerto al que estará escuchando el programa, si no se especifica un puerto se utilizará el *1921* como predeterminado.
 
+</br>
 
-Inicio del cliente
+### Inicio del cliente
 
 ```bash
 java -jar FileTransfer.jar host@port@file_path
